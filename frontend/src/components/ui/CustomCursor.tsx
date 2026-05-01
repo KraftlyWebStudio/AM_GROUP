@@ -8,7 +8,7 @@ export default function CustomCursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  const springConfig = { damping: 50, stiffness: 1000 }; // Ultra-smooth and fast
+  const springConfig = { damping: 50, stiffness: 1000 }; 
   const x = useSpring(cursorX, springConfig);
   const y = useSpring(cursorY, springConfig);
 
@@ -18,27 +18,35 @@ export default function CustomCursor() {
       cursorY.set(e.clientY);
     };
 
-    const handleHover = (e: MouseEvent) => {
+    const handleHoverState = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const isInteractive = target.closest('button, a, [data-hover="true"]');
-      setIsHovered(!!isInteractive);
+      const interactive = target.closest('button, a, [data-hover="true"]');
+      
+      // Explicitly check for data-cursor-ignore
+      if (interactive && !interactive.hasAttribute('data-cursor-ignore')) {
+        setIsHovered(true);
+      } else {
+        setIsHovered(false);
+      }
     };
 
     window.addEventListener("mousemove", moveCursor, { passive: true });
-    window.addEventListener("mouseover", handleHover);
+    window.addEventListener("mouseover", handleHoverState);
+    window.addEventListener("mouseout", handleHoverState);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
-      window.removeEventListener("mouseover", handleHover);
+      window.removeEventListener("mouseover", handleHoverState);
+      window.removeEventListener("mouseout", handleHoverState);
     };
   }, [cursorX, cursorY]);
 
   return (
     <motion.div
-      className="fixed top-0 left-0 border-[0.4px] border-[#F5F1E6]/40 rounded-full pointer-events-none z-[9999]"
+      className="fixed top-0 left-0 border-[2px] border-[#F5F1E6]/10 rounded-full pointer-events-none z-[9999]"
       animate={{ 
-        width: isHovered ? 150 : 8,
-        height: isHovered ? 150 : 8,
+        width: isHovered ? 150 : 20,
+        height: isHovered ? 150 : 20,
       }}
       style={{
         x,

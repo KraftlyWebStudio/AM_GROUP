@@ -10,6 +10,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ isVisible }: HeroSectionProps) {
   const [animateState, setAnimateState] = useState("hidden");
+  const [hoverTrigger, setHoverTrigger] = useState(0);
 
   useEffect(() => {
     if (isVisible) {
@@ -30,7 +31,7 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
       >
         <div 
           className="w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: 'url("/luxury-hero.jpg")' }}
+          style={{ backgroundImage: 'url("/bg-image.png")' }}
         />
         {/* Cinematic Overlay */}
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
@@ -85,11 +86,28 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
           className="flex-1 flex items-center justify-end gap-10"
         >
           <span className="text-[10px] tracking-[0.3em] text-[#F5F1E6]/80 hidden md:block font-sans">EST — 2020</span>
-          <button className="flex flex-col gap-1.5 hover:opacity-70 transition-opacity">
-            <div className="w-10 h-[1px] bg-[#F5F1E6]" />
-            <div className="w-10 h-[1px] bg-[#F5F1E6]" />
-            <div className="w-10 h-[1px] bg-[#F5F1E6]" />
-          </button>
+          <motion.button 
+            className="flex flex-col gap-[6px] relative w-8 py-2"
+            onMouseEnter={() => setHoverTrigger(prev => prev + 1)}
+            data-cursor-ignore="true"
+          >
+            {[0, 1, 2, 3, 4].map((i) => (
+              <div key={i} className="w-full h-[1px] relative overflow-hidden">
+                <motion.div 
+                  key={`${i}-${hoverTrigger}`} // Restarts the animation on each hover
+                  className="w-full h-full bg-[#F5F1E6]"
+                  initial={{ x: "0%" }}
+                  animate={hoverTrigger > 0 ? { x: ["0%", "110%", "-110%", "0%"] } : {}}
+                  transition={{ 
+                    duration: 0.6,
+                    delay: i * 0.05,
+                    times: [0, 0.4, 0.4, 1],
+                    ease: [0.76, 0, 0.24, 1]
+                  }}
+                />
+              </div>
+            ))}
+          </motion.button>
         </motion.div>
       </header>
       
