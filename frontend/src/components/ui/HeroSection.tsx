@@ -125,10 +125,10 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
         >
           <span className="text-[10px] tracking-[0.3em] text-[#F5F1E6]/80 hidden md:block font-sans">EST — 2020</span>
           <motion.button 
-            className="flex flex-col gap-[6px] relative w-8 py-2"
+            className="flex flex-col gap-[5px] relative w-6 py-2"
             onMouseEnter={() => setHoverTrigger(prev => prev + 1)}
           >
-            {[0, 1, 2, 3].map((i) => (
+            {[0, 1, 2, 3, 4].map((i) => (
               <div key={i} className="w-full h-[0.5px] relative overflow-hidden">
                 <motion.div 
                   key={`${i}-${hoverTrigger}`}
@@ -137,7 +137,7 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
                   animate={hoverTrigger > 0 ? { x: ["0%", "110%", "-110%", "0%"] } : {}}
                   transition={{ 
                     duration: 0.6,
-                    delay: i * 0.05,
+                    delay: (4 - i) * 0.05,
                     times: [0, 0.4, 0.4, 1],
                     ease: [0.76, 0, 0.24, 1]
                   }}

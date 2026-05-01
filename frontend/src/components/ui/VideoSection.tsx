@@ -1,50 +1,50 @@
 "use client";
 
 import { useRef } from "react";
+import { Play } from "lucide-react";
 import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@gsap/react";
 
 export default function VideoSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (!videoRef.current) return;
+    if (!contentRef.current) return;
 
-    gsap.to(videoRef.current, {
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-      },
-      y: "20%",
-      ease: "none",
-    });
+    gsap.fromTo(contentRef.current, 
+      { opacity: 0, scale: 0.9 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      }
+    );
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden bg-black">
-      <video
-        ref={videoRef}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute top-[-20%] left-0 w-full h-[140%] object-cover opacity-70"
-      >
-        <source 
-          src="https://player.vimeo.com/external/494163967.hd.mp4?s=7b94924c7f078d46422b406b1248677c770c3258&profile_id=175" 
-          type="video/mp4" 
-        />
-      </video>
+    <section ref={containerRef} className="relative z-10 w-full h-[50vh] md:h-[60vh] overflow-hidden bg-black flex items-center justify-center">
       
-      {/* Overlay Content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-        <h3 className="text-white text-3xl md:text-5xl font-serif tracking-[0.2em] uppercase mb-4 opacity-80">
-          Shaping the Future
-        </h3>
-        <div className="w-24 h-[1px] bg-white/40" />
+      {/* Centered Video Logo / Play Button */}
+      <div ref={contentRef} className="relative z-10">
+        <div className="group cursor-pointer relative">
+          {/* Animated Rings */}
+          <div className="absolute inset-0 rounded-full border border-white/10 scale-150 animate-pulse" />
+          <div className="absolute inset-0 rounded-full border border-white/5 scale-[2] animate-pulse delay-700" />
+          
+          <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border border-white/20 flex items-center justify-center bg-white/5 backdrop-blur-sm transition-all duration-700 group-hover:bg-white group-hover:border-white">
+            <Play 
+              size={32} 
+              className="text-white fill-white transition-colors duration-700 group-hover:text-black group-hover:fill-black translate-x-1" 
+            />
+          </div>
+        </div>
       </div>
     </section>
   );

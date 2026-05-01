@@ -41,7 +41,7 @@ export default function StackCards() {
             top: `${STACK_GAP * i}px`, // 1st card (i=0) hits top: 0
             zIndex: i + 10 
           }}
-          className="sticky h-screen w-full overflow-hidden"
+          className="sticky h-[80vh] w-full overflow-hidden"
         >
           <div className="relative w-full h-full">
             {/* Background Image */}
