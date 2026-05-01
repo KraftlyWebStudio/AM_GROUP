@@ -29,6 +29,7 @@ export default function HeroSection({ isVisible }: { isVisible: boolean }) {
 
       {/* Header */}
       <header className="relative z-10 flex items-center justify-between px-8 py-8 md:px-12">
+        {/* Left Side: Portfolio Button */}
         <motion.div
           initial="hidden"
           animate={animateState}
@@ -37,27 +38,36 @@ export default function HeroSection({ isVisible }: { isVisible: boolean }) {
             visible: { opacity: 1, y: 0 }
           }}
           transition={{ duration: 1, delay: 0.5 }}
+          className="flex-1"
         >
-          <button className="border border-white/40 hover:bg-white/10 transition-colors rounded-full px-6 py-2 text-sm tracking-widest backdrop-blur-md">
-            OUR PORTFOLIO
+          <button className="group relative overflow-hidden border border-[#F5F1E6]/40 text-[#F5F1E6] transition-colors duration-500 rounded-full px-10 py-3 text-[11px] tracking-[0.25em] font-sans backdrop-blur-sm">
+            {/* Water Fill Layer */}
+            <div className="absolute inset-0 bg-[#F5F1E6] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.85, 0, 0.15, 1]" />
+            
+            {/* Button Text */}
+            <span className="relative z-10 group-hover:text-black transition-colors duration-500">
+              OUR PORTFOLIO
+            </span>
           </button>
         </motion.div>
 
+        {/* Center: Brand Logo */}
         <motion.div
           initial="hidden"
           animate={animateState}
           variants={{
-            hidden: { opacity: 0, y: -20 },
-            visible: { opacity: 1, y: 0 }
+            hidden: { opacity: 0, scale: 0.9 },
+            visible: { opacity: 1, scale: 1 }
           }}
-          transition={{ duration: 1, delay: 0.7 }}
-          className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center"
+          transition={{ duration: 1.5, delay: 0.7 }}
+          className="flex-1 flex justify-center"
         >
-          <h1 className="font-serif text-3xl md:text-4xl tracking-[0.3em] ml-[0.3em]">
-            A M G R O U P
+          <h1 className="text-3xl md:text-5xl font-serif tracking-[0.5em] text-[#F5F1E6] cursor-default whitespace-nowrap">
+            AM GROUP
           </h1>
         </motion.div>
 
+        {/* Right Side: EST and Menu */}
         <motion.div
           initial="hidden"
           animate={animateState}
@@ -66,14 +76,29 @@ export default function HeroSection({ isVisible }: { isVisible: boolean }) {
             visible: { opacity: 1, y: 0 }
           }}
           transition={{ duration: 1, delay: 0.9 }}
-          className="flex items-center gap-6"
+          className="flex-1 flex items-center justify-end gap-10"
         >
-          <span className="text-sm tracking-widest text-white/80 hidden md:block">EST — 2020</span>
-          <button className="p-2 hover:bg-white/10 rounded-full transition-colors backdrop-blur-md">
-            <Menu size={28} strokeWidth={1} />
+          <span className="text-[10px] tracking-[0.3em] text-[#F5F1E6]/80 hidden md:block font-sans">EST — 2020</span>
+          <button className="flex flex-col gap-1.5 hover:opacity-70 transition-opacity">
+            <div className="w-10 h-[1px] bg-[#F5F1E6]" />
+            <div className="w-10 h-[1px] bg-[#F5F1E6]" />
+            <div className="w-10 h-[1px] bg-[#F5F1E6]" />
           </button>
         </motion.div>
       </header>
+      
+      {/* Navbar Underline Effect */}
+      <motion.div
+        className="relative z-10 h-[0.5px] bg-[#F5F1E6]/20 w-full"
+        initial="hidden"
+        animate={animateState}
+        variants={{
+          hidden: { scaleX: 0 },
+          visible: { scaleX: 1 }
+        }}
+        transition={{ duration: 1.8, delay: 0.2, ease: [0.45, 0, 0.55, 1] }}
+        style={{ originX: 0 }}
+      />
 
       {/* Bottom Content */}
       <div className="absolute bottom-0 w-full p-8 md:p-12 flex justify-between items-end z-10">
@@ -101,10 +126,41 @@ export default function HeroSection({ isVisible }: { isVisible: boolean }) {
           }}
           transition={{ duration: 1, delay: 1.5 }}
         >
-          <button className="flex items-center gap-2 group border-b border-transparent hover:border-white pb-1 transition-all">
-            <span className="text-sm tracking-widest">EXPLORE</span>
-            <ArrowDownRight size={18} className="group-hover:translate-x-1 group-hover:translate-y-1 transition-transform" />
-          </button>
+          <motion.button 
+            whileHover="hover"
+            initial="initial"
+            className="group flex flex-col items-end gap-2 text-[#F5F1E6]"
+          >
+            <motion.div 
+              className="flex items-center gap-2"
+              variants={{
+                initial: { x: 0 },
+                hover: { x: -8 }
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            >
+              <span className="text-[15px] tracking-[0.2em] font-sans">EXPLORE</span>
+              <motion.div
+                variants={{
+                  initial: { x: 0, y: 0 },
+                  hover: { x: 0, y: 0 } // No movement
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              >
+                <ArrowDownRight size={28} strokeWidth={1} />
+              </motion.div>
+            </motion.div>
+            <div className="w-full h-[1px] overflow-hidden">
+              <motion.div 
+                className="w-full h-full bg-[#F5F1E6]"
+                variants={{
+                  initial: { x: 0, opacity: 1 },
+                  hover: { x: "-100%", opacity: 0 }
+                }}
+                transition={{ duration: 0.6, ease: [0.45, 0, 0.55, 1] }}
+              />
+            </div>
+          </motion.button>
         </motion.div>
       </div>
 
