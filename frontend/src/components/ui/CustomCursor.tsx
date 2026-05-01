@@ -22,7 +22,6 @@ export default function CustomCursor() {
       const target = e.target as HTMLElement;
       const interactive = target.closest('button, a, [data-hover="true"]');
       
-      // Explicitly check for data-cursor-ignore
       if (interactive && !interactive.hasAttribute('data-cursor-ignore')) {
         setIsHovered(true);
       } else {
