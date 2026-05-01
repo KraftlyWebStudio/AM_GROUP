@@ -20,9 +20,10 @@ export default function CustomCursor() {
 
     const handleHoverState = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const interactive = target.closest('button, a, [data-hover="true"]');
+      // Only expand on elements with data-cursor-expand="true"
+      const interactive = target.closest('[data-cursor-expand="true"]');
       
-      if (interactive && !interactive.hasAttribute('data-cursor-ignore')) {
+      if (interactive) {
         setIsHovered(true);
       } else {
         setIsHovered(false);
@@ -42,16 +43,18 @@ export default function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 border-[2px] border-[#F5F1E6]/10 rounded-full pointer-events-none z-[9999]"
+      className="fixed top-0 left-0 border-[1px] border-white/60 mix-blend-difference rounded-full pointer-events-none z-[9999]"
       animate={{ 
-        width: isHovered ? 150 : 20,
-        height: isHovered ? 150 : 20,
+        width: isHovered ? 120 : 20,
+        height: isHovered ? 120 : 20,
+        opacity: isHovered ? 0.5 : 1,
       }}
       style={{
         x,
         y,
         translateX: "-50%",
         translateY: "-50%",
+        boxShadow: "0 0 10px rgba(255, 255, 255, 0.2)", // Faded sides effect
       }}
       transition={{
         width: { type: "tween", ease: "linear", duration: 0.1 },

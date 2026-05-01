@@ -55,12 +55,12 @@ export default function AboutSection() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative z-20 h-auto bg-[#D2C4B1] py-24 overflow-hidden">
+    <section ref={sectionRef} className="relative z-20 h-auto bg-[#D2C4B1] py-12 md:py-16 overflow-hidden">
       <div className="w-full flex flex-col md:flex-row items-center">
         
         {/* Left Content: Text */}
         <div className="w-full md:w-[40%] flex justify-start px-8 md:pl-20 md:pr-12">
-          <div className="max-w-md w-full flex flex-col gap-12">
+          <div className="max-w-md w-full flex flex-col gap-10">
             
             {/* Geometric Logo */}
             <div ref={logoRef} className="w-14 h-14 grid grid-cols-2 grid-rows-2 border border-[#2A2A2A]/20">
@@ -81,29 +81,45 @@ export default function AboutSection() {
             {/* Text Content */}
             <div ref={textContainerRef} className="flex flex-col gap-8">
               <div className="overflow-hidden">
-                <span className="reveal-item block text-[#2A2A2A]/40 tracking-[0.4em] text-[10px] font-sans font-medium">
-                  WHY FLORIDA?
+                <span className="reveal-item block text-[#2A2A2A]/40 tracking-[0.4em] text-[10px] font-sans font-medium uppercase">
+                  DRIVEN BY EXCELLENCE
                 </span>
               </div>
 
               <div className="overflow-hidden">
-                <h2 className="reveal-item text-4xl md:text-[64px] font-sans font-light leading-[0.95] text-[#2A2A2A] uppercase tracking-[-0.03em]">
-                  We shape <br />
-                  the essence <br />
-                  of living
+                <h2 className="reveal-item text-4xl md:text-[56px] font-sans font-light leading-[0.95] text-[#2A2A2A] uppercase tracking-[-0.03em]">
+                  Multidisciplinary <br />
+                  Solutions for <br />
+                  Global Growth
                 </h2>
               </div>
 
               <div className="overflow-hidden">
-                <p className="reveal-item text-[#2A2A2A]/60 text-base leading-relaxed max-w-sm mt-1 font-sans font-light">
-                  We envision spaces that are not just lived in, but felt — where every element has been curated to inspire connection, serenity, and a profound sense of belonging.
+                <p className="reveal-item text-[#2A2A2A]/60 text-sm leading-relaxed max-w-sm mt-1 font-sans font-light">
+                  AM Group brings together Consulting, Design, and Data Analytics under one name. We are dedicated to empowering businesses with strategy, creative expertise, and financial insight to drive innovation and success globally.
                 </p>
+              </div>
+            </div>
+
+            {/* Stats Summary */}
+            <div className="reveal-item flex gap-12 mt-2 border-t border-[#2A2A2A]/10 pt-6">
+              <div>
+                <span className="block text-xl font-sans font-light text-[#2A2A2A]">210+</span>
+                <span className="text-[8px] tracking-[0.2em] text-[#2A2A2A]/40 uppercase">Clients</span>
+              </div>
+              <div>
+                <span className="block text-xl font-sans font-light text-[#2A2A2A]">105+</span>
+                <span className="text-[8px] tracking-[0.2em] text-[#2A2A2A]/40 uppercase">Projects</span>
+              </div>
+              <div>
+                <span className="block text-xl font-sans font-light text-[#2A2A2A]">20+</span>
+                <span className="text-[8px] tracking-[0.2em] text-[#2A2A2A]/40 uppercase">Years</span>
               </div>
             </div>
 
             {/* Button */}
             <div ref={buttonRef}>
-              <button className="group relative w-fit px-12 py-5 bg-[#2A2A2A] text-[#D2C4B1] rounded-full overflow-hidden text-[11px] tracking-[0.25em] font-medium">
+              <button className="group relative w-fit px-10 py-4 bg-[#2A2A2A] text-[#D2C4B1] rounded-full overflow-hidden text-[10px] tracking-[0.25em] font-medium">
                 <span className="relative z-10 transition-colors duration-500 group-hover:text-[#2A2A2A]">PROJECTS</span>
                 <div className="absolute inset-0 bg-[#D2C4B1] translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[0.76, 0, 0.24, 1]" />
               </button>
@@ -112,7 +128,7 @@ export default function AboutSection() {
         </div>
 
         {/* Right Content: Image */}
-        <div className="w-full md:w-[60%] h-[40vh] md:h-[65vh] mt-10 md:mt-0 relative overflow-hidden">
+        <div className="w-full md:w-[60%] h-[35vh] md:h-[50vh] mt-10 md:mt-0 relative overflow-hidden">
           <div ref={imageWrapperRef} className="w-full h-full relative">
             <Image 
               src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop"

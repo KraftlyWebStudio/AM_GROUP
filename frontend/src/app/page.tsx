@@ -8,6 +8,7 @@ import IntroAnimation from "@/components/ui/IntroAnimation";
 import HeroSection from "@/components/ui/HeroSection";
 import AboutSection from "@/components/ui/AboutSection";
 import PortfolioSection from "@/components/ui/PortfolioSection";
+import VideoSection from "@/components/ui/VideoSection";
 import CustomCursor from "@/components/ui/CustomCursor";
 import StackCards from "@/components/ui/StackCards";
 import Footer from "@/components/layouts/footer";
@@ -48,6 +49,7 @@ export default function Home() {
       </div>
 
       <AboutSection />
+      <VideoSection />
       <PortfolioSection />
 
       <IntroAnimation

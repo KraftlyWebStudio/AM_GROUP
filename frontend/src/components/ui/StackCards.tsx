@@ -8,118 +8,76 @@ import { useGSAP } from "@gsap/react";
 const sections = [
   {
     title: "CASA DOHA",
-    location: "DOHA, QATAR",
-    description:
-      "A geometric marvel standing against the desert horizon, where light and shadow perform a daily ritual.",
-    bg: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
+    location: "QATAR",
+    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2000&auto=format&fit=crop"
   },
   {
     title: "CASA ANTIBES",
-    location: "ANTIBES, FRANCE",
-    description:
-      "Seamlessly integrating the azure of the Mediterranean with modernist limestone architecture.",
-    bg: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop",
+    location: "FRANCE",
+    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2000&auto=format&fit=crop"
   },
   {
     title: "CASA FERRARA",
-    location: "FERRARA, ITALY",
-    description:
-      "A celebration of volume and materiality in the heart of Northern Italy's architectural heritage.",
-    bg: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
-  },
+    location: "ITALY",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop"
+  }
 ];
 
-const OFFSET = 30; // px each card peeks below the previous
+const STACK_GAP = 90; // Increased distance between stopping images
 
 export default function StackCards() {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
-
-  useGSAP(
-    () => {
-      const cards = cardsRef.current;
-
-      cards.forEach((card, i) => {
-        if (i === cards.length - 1) return; // last card never shrinks
-
-        // Shrink + darken this card as the NEXT card slides over it
-        gsap.to(card, {
-          scale: 0.94 - i * 0.01, // each older card is a little smaller
-          filter: "brightness(0.35)",
-          transformOrigin: "top center",
-          ease: "none",
-          scrollTrigger: {
-            trigger: cards[i + 1],
-            start: "top 100%", // when next card bottom enters viewport
-            end: "top 0%",     // when next card top hits viewport top
-            scrub: true,
-          },
-        });
-      });
-
-      ScrollTrigger.refresh();
-    },
-    { scope: wrapperRef }
-  );
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    /*
-     * The wrapper must be tall enough to give scroll room for each card.
-     * Each card is 100vh, pinned with CSS `sticky`. The wrapper height
-     * is cards.length * 100vh so the browser scrolls through each one.
-     */
-    <div
-      ref={wrapperRef}
-      style={{ height: `${sections.length * 100}vh` }}
-      className="relative"
+    <div 
+      ref={containerRef} 
+      className="relative bg-[#D2C4B1]"
+      style={{ height: `${sections.length * 100 + 20}vh` }} // Extra height for the final stack to rest
     >
       {sections.map((section, i) => (
         <div
           key={i}
-          ref={(el) => { if (el) cardsRef.current[i] = el; }}
-          style={{
-            top: `${i * OFFSET}px`,     // staircase offset
-            zIndex: i + 10,
-            willChange: "transform, filter",
+          style={{ 
+            top: `${STACK_GAP * i}px`, // 1st card (i=0) hits top: 0
+            zIndex: i + 10 
           }}
           className="sticky h-screen w-full overflow-hidden"
         >
-          {/* Background */}
-          <img
-            src={section.bg}
-            alt={section.title}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
+          <div className="relative w-full h-full">
+            {/* Background Image */}
+            <img
+              src={section.image}
+              alt={section.title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-black/45" />
+            {/* Content: Top Right Counter */}
+            <div className="absolute top-12 right-12 text-white/80 font-serif text-2xl tracking-widest">
+              {i + 1} / {sections.length}
+            </div>
 
-          {/* Top thin line that shows the "stack peek" */}
-          {i > 0 && (
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/10" />
-          )}
-
-          {/* Content — positioned bottom-left, matching the Arcca layout */}
-          <div className="absolute bottom-0 left-0 p-10 md:p-16 z-10">
-            <p className="text-white/50 text-[10px] tracking-[0.4em] mb-5 uppercase">
-              Featured Project
-            </p>
-            <h2 className="text-white font-extralight tracking-tight leading-none mb-8 uppercase"
-              style={{ fontSize: "clamp(3rem, 10vw, 7rem)" }}>
-              {section.title.split(" ")[0]}
-              <br />
-              <span style={{ fontStyle: "italic", fontFamily: "Georgia, serif" }}>
-                {section.title.split(" ").slice(1).join(" ")}
+            {/* Content: Bottom Left Text */}
+            <div className="absolute bottom-24 left-12 md:left-24 max-w-2xl">
+              <span className="text-white/60 text-[10px] tracking-[0.4em] uppercase font-sans mb-4 block">
+                FEATURED PROJECT
               </span>
-            </h2>
-            <button className="px-7 py-3 border border-white/30 rounded-full text-[10px] tracking-widest text-white hover:bg-white hover:text-black transition-all duration-300">
-              VIEW
-            </button>
-          </div>
+              <h2 className="text-white text-5xl md:text-9xl font-serif tracking-tight leading-[0.9] uppercase">
+                {section.title}
+              </h2>
+            </div>
 
-          {/* Project counter — top right, matching the Arcca layout */}
-          <div className="absolute top-8 right-10 text-white/70 text-sm font-light tracking-widest">
-            {i + 1} / {sections.length}
+            {/* Content: Bottom Right Button */}
+            <div className="absolute bottom-24 right-12 md:right-24">
+              <button 
+                data-cursor-expand="true"
+                className="px-12 py-4 border border-white/40 rounded-full text-[11px] tracking-[0.3em] text-white hover:bg-white hover:text-black transition-all duration-500 uppercase font-sans backdrop-blur-md"
+              >
+                VIEW
+              </button>
+            </div>
           </div>
         </div>
       ))}

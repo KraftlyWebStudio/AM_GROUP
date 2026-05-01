@@ -8,21 +8,28 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const baseProjects = [
   {
-    title: "CASA ANTIBES",
-    location: "France",
-    tag: "CURRENT PROJECTS",
-    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop"
+    title: "MAISON AL NOOR",
+    location: "Bahrain",
+    tag: "BRAND IDENTITY & INTERIORS",
+    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop"
   },
   {
-    title: "CASA FERRARA",
-    location: "Pinecrest",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
+    title: "BLOOM CAFÉ",
+    location: "Saudi Arabia",
+    tag: "CONCEPT TO EXECUTION",
+    image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000&auto=format&fit=crop"
   },
   {
-    title: "CASA 88",
-    location: "Miami Dade",
-    tag: "IN DEVELOPMENT",
-    image: "https://images.unsplash.com/photo-1600607687940-47a04f6e3a73?q=80&w=2070&auto=format&fit=crop"
+    title: "LA VERNE",
+    location: "Oman",
+    tag: "SKINCARE BRAND STORY",
+    image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=2000&auto=format&fit=crop"
+  },
+  {
+    title: "NOOR EDUCATION",
+    location: "Kuwait",
+    tag: "GROWTH STRATEGY",
+    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2000&auto=format&fit=crop"
   }
 ];
 
@@ -119,16 +126,16 @@ export default function PortfolioSection() {
         {/* Left Content */}
         <div className="w-full md:w-[35%] flex flex-col gap-10 sticky top-32">
           <div>
-             {/* Refined ARCCA Logo */}
+             {/* Refined AM GROUP Logo */}
              <div className="portfolio-header-item mb-8">
                <div className="w-16 h-16 flex flex-col border border-[#2A2A2A]/40 p-1.5 opacity-80">
                  <div className="flex-1 flex border-b border-[#2A2A2A]/40">
-                   <div className="flex-1 flex items-center justify-center text-[14px] font-sans font-bold tracking-tighter border-r border-[#2A2A2A]/40">AR</div>
-                   <div className="flex-1 flex items-center justify-center text-[14px] font-sans font-bold tracking-tighter italic">C</div>
+                   <div className="flex-1 flex items-center justify-center text-[16px] font-sans font-bold tracking-tighter border-r border-[#2A2A2A]/40">AM</div>
+                   <div className="flex-1 flex items-center justify-center text-[10px] font-sans font-bold tracking-tighter italic">GRP</div>
                  </div>
                  <div className="flex-1 flex">
-                   <div className="flex-1 flex items-center justify-center text-[14px] font-sans font-bold tracking-tighter border-r border-[#2A2A2A]/40 italic">C</div>
-                   <div className="flex-1 flex items-center justify-center text-[14px] font-sans font-bold tracking-tighter">A</div>
+                   <div className="flex-1 flex items-center justify-center text-[10px] font-sans font-bold tracking-tighter border-r border-[#2A2A2A]/40 italic">20</div>
+                   <div className="flex-1 flex items-center justify-center text-[10px] font-sans font-bold tracking-tighter">20</div>
                  </div>
                </div>
              </div>
