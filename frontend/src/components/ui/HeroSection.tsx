@@ -1,35 +1,44 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Menu, ArrowDownRight } from "lucide-react";
+import { ArrowDownRight } from "lucide-react";
+import { useEffect, useState } from "react";
 
-export default function HeroSection({ isVisible }: { isVisible: boolean }) {
-  const animateState = isVisible ? "visible" : "hidden";
+interface HeroSectionProps {
+  isVisible: boolean;
+}
+
+export default function HeroSection({ isVisible }: HeroSectionProps) {
+  const [animateState, setAnimateState] = useState("hidden");
+
+  useEffect(() => {
+    if (isVisible) {
+      // Small delay after intro reveal starts to ensure smooth visual handoff
+      const timer = setTimeout(() => setAnimateState("visible"), 400);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible]);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden text-white">
-      {/* Background Image with Overlay */}
-      <motion.div
-        className="absolute inset-0 z-0 bg-black"
-        initial="hidden"
-        animate={animateState}
-        variants={{
-          hidden: { scale: 1.1 },
-          visible: { scale: 1 }
-        }}
-        transition={{ duration: 2.5, ease: "easeOut" }}
+    <div className="relative w-full h-screen overflow-hidden bg-black">
+      {/* Background Image with Ken Burns effect */}
+      <motion.div 
+        className="absolute inset-0 z-0"
+        initial={{ scale: 1.1, opacity: 0 }}
+        animate={animateState === "visible" ? { scale: 1, opacity: 1 } : {}}
+        transition={{ duration: 2.5, ease: [0.25, 1, 0.5, 1] }}
       >
         <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url("/bg-image.png")' }}
+          className="w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: 'url("/luxury-hero.jpg")' }}
         />
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
+        {/* Cinematic Overlay */}
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
       </motion.div>
 
       {/* Header */}
       <header className="relative z-10 flex items-center justify-between px-8 py-8 md:px-12">
-        {/* Left Side: Portfolio Button */}
+        {/* Left Side: Portfolio Button with Water Fill */}
         <motion.div
           initial="hidden"
           animate={animateState}
@@ -41,10 +50,7 @@ export default function HeroSection({ isVisible }: { isVisible: boolean }) {
           className="flex-1"
         >
           <button className="group relative overflow-hidden border border-[#F5F1E6]/40 text-[#F5F1E6] transition-colors duration-500 rounded-full px-10 py-3 text-[11px] tracking-[0.25em] font-sans backdrop-blur-sm">
-            {/* Water Fill Layer */}
             <div className="absolute inset-0 bg-[#F5F1E6] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.85, 0, 0.15, 1]" />
-            
-            {/* Button Text */}
             <span className="relative z-10 group-hover:text-black transition-colors duration-500">
               OUR PORTFOLIO
             </span>
@@ -103,20 +109,21 @@ export default function HeroSection({ isVisible }: { isVisible: boolean }) {
       {/* Bottom Content */}
       <div className="absolute bottom-0 w-full p-8 md:p-12 flex justify-between items-end z-10">
         <motion.div
-          className="max-w-xl"
           initial="hidden"
           animate={animateState}
           variants={{
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
           }}
-          transition={{ duration: 1, delay: 1.2 }}
+          transition={{ duration: 1.2, delay: 1.2 }}
+          className="max-w-md"
         >
-          <p className="text-white/80 text-sm md:text-base leading-relaxed tracking-wide font-light">
-            At AM Group, we craft more than spaces — we shape the essence of living. Our vision is to redefine high-end residential development by creating homes that seamlessly intertwine beauty, well-being, and purposeful design
+          <p className="text-[#F5F1E6]/70 text-xs md:text-sm leading-relaxed font-light tracking-wide">
+            At AM Group, we craft more than spaces — we shape the essence of living. Our vision is to redefine high-end residential development by creating homes that seamlessly intertwine beauty, well-being, and purposeful design.
           </p>
         </motion.div>
 
+        {/* EXPLORE Button with Sliding Line */}
         <motion.div
           initial="hidden"
           animate={animateState}
@@ -143,9 +150,8 @@ export default function HeroSection({ isVisible }: { isVisible: boolean }) {
               <motion.div
                 variants={{
                   initial: { x: 0, y: 0 },
-                  hover: { x: 0, y: 0 } // No movement
+                  hover: { x: 0, y: 0 }
                 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
                 <ArrowDownRight size={28} strokeWidth={1} />
               </motion.div>
@@ -163,14 +169,6 @@ export default function HeroSection({ isVisible }: { isVisible: boolean }) {
           </motion.button>
         </motion.div>
       </div>
-
-      {/* Side Decorative Elements if needed */}
-      <motion.div 
-        className="absolute left-8 top-1/2 -translate-y-1/2 w-[1px] h-32 bg-white/20 hidden lg:block"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-      />
     </div>
   );
 }
