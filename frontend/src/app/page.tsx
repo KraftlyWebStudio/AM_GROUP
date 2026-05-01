@@ -3,12 +3,14 @@
 import { useState } from "react";
 import IntroAnimation from "@/components/ui/IntroAnimation";
 import HeroSection from "@/components/ui/HeroSection";
+import CustomCursor from "../components/ui/CustomCursor";
 
 export default function Home() {
   const [introStarted, setIntroStarted] = useState(false);
 
   return (
     <main className="w-full h-screen bg-black overflow-hidden relative">
+      <CustomCursor />
       <HeroSection isVisible={introStarted} />
       <IntroAnimation onStartReveal={() => setIntroStarted(true)} onComplete={() => {}} />
     </main>
