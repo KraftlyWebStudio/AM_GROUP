@@ -70,7 +70,7 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
           className="flex-1 flex justify-center"
         >
           <h1 className="text-3xl md:text-5xl font-serif tracking-[0.5em] text-[#F5F1E6] cursor-default whitespace-nowrap">
-            AM GROUP
+            ARCCA
           </h1>
         </motion.div>
 
