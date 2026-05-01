@@ -6,7 +6,7 @@ import { gsap } from "@/lib/gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import IntroAnimation from "@/components/ui/IntroAnimation";
 import HeroSection from "@/components/ui/HeroSection";
-import CustomCursor from "../components/ui/CustomCursor";
+import CustomCursor from "@/components/ui/CustomCursor";
 import StackCards from "@/components/ui/StackCards";
 import Footer from "@/components/layouts/footer";
 

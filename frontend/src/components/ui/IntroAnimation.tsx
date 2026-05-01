@@ -19,12 +19,12 @@ export default function IntroAnimation({
       setLinesMoving(true);
     }, 1000);
 
-    // 2. Wait another 0.8 seconds (total 1.8s) then open the gate
+    // 2. Tighter overlap: Start opening the gate 0.6s after lines start moving
     const gateTimer = setTimeout(() => {
       setIsVisible(false);
       onStartReveal(); 
       setTimeout(onComplete, 1400); 
-    }, 1800); 
+    }, 1600); 
 
     return () => {
       clearTimeout(lineTimer);
@@ -32,8 +32,9 @@ export default function IntroAnimation({
     };
   }, [onComplete, onStartReveal]);
 
-  const panelEase = [0.77, 0, 0.175, 1] as [number, number, number, number]; 
-  const lineEase = [0.45, 0, 0.55, 1] as [number, number, number, number];
+  // Refined easing for a more "expensive" feel
+  const panelEase = [0.85, 0, 0.15, 1] as [number, number, number, number]; 
+  const lineEase = [0.6, 0.01, -0.05, 0.9] as [number, number, number, number];
 
   return (
     <AnimatePresence mode="wait">
@@ -47,7 +48,7 @@ export default function IntroAnimation({
             className="absolute left-0 top-0 w-1/2 h-full bg-[#F5F1E6]"
             initial={{ x: 0 }}
             exit={{ x: "-100%" }}
-            transition={{ duration: 1.2, ease: panelEase }}
+            transition={{ duration: 1.4, ease: panelEase }}
           />
 
           {/* Right Gate Panel */}
@@ -55,7 +56,7 @@ export default function IntroAnimation({
             className="absolute right-0 top-0 w-1/2 h-full bg-[#F5F1E6]"
             initial={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ duration: 1.2, ease: panelEase }}
+            transition={{ duration: 1.4, ease: panelEase }}
           />
 
           {/* Elements Container */}
@@ -65,7 +66,7 @@ export default function IntroAnimation({
               className="absolute left-[10vw] top-0 w-[2px] bg-black"
               initial={{ height: "100vh", y: 0 }}
               animate={linesMoving ? { y: "100vh" } : { y: 0 }}
-              transition={{ duration: 1.2, ease: lineEase }}
+              transition={{ duration: 1.0, ease: lineEase }}
             />
 
             {/* Right Side Line - Moves UP */}
@@ -73,7 +74,7 @@ export default function IntroAnimation({
               className="absolute right-[10vw] bottom-0 w-[2px] bg-black"
               initial={{ height: "100vh", y: 0 }}
               animate={linesMoving ? { y: "-100vh" } : { y: 0 }}
-              transition={{ duration: 1.2, ease: lineEase }}
+              transition={{ duration: 1.0, ease: lineEase }}
             />
 
             {/* Center Lines */}
@@ -81,13 +82,13 @@ export default function IntroAnimation({
               className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] bg-black"
               initial={{ height: "42vh", y: 0 }}
               animate={linesMoving ? { y: "-50vh", opacity: 0 } : { y: 0 }}
-              transition={{ duration: 1, ease: lineEase }}
+              transition={{ duration: 0.9, ease: lineEase }}
             />
             <motion.div
               className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[2px] bg-black"
               initial={{ height: "42vh", y: 0 }}
               animate={linesMoving ? { y: "50vh", opacity: 0 } : { y: 0 }}
-              transition={{ duration: 1, ease: lineEase }}
+              transition={{ duration: 0.9, ease: lineEase }}
             />
 
             {/* Center Logo - Fades out when lines move or gate opens */}
