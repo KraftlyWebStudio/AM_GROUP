@@ -1,8 +1,16 @@
+"use client";
+
+import { useState } from "react";
+import IntroAnimation from "@/components/ui/IntroAnimation";
+import HeroSection from "@/components/ui/HeroSection";
 
 export default function Home() {
+  const [introStarted, setIntroStarted] = useState(false);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <h1>Hello world</h1>
-    </div>
+    <main className="w-full h-screen bg-black overflow-hidden relative">
+      <HeroSection isVisible={introStarted} />
+      <IntroAnimation onStartReveal={() => setIntroStarted(true)} onComplete={() => {}} />
+    </main>
   );
 }
