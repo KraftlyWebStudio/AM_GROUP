@@ -1,9 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap } from "@/lib/gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 
 const sections = [
   {
