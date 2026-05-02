@@ -39,3 +39,8 @@ frontend/.next
 frontend/node_modules
 .bin
 .pnpm-store
+.manifests
+.vscode
+tsmaps
+pub
+docs-assembler-config.json
